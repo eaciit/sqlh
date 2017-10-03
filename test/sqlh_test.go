@@ -59,7 +59,7 @@ func TestInsert(t *testing.T) {
 	sql := "insert into test_table_model2 (id, name, level, datejoin) values(?,?,?,?)"
 	id := toolkit.RandomString(32)
 	name := "Name " + id
-	qr := sqlh.Exec(db, sqlh.ExecNonScalar, sql, id, name, 100, toolkit.Date2String(time.Now(), "yyyy-MM-dd hh:mm:ss"))
+	qr := sqlh.Exec(db, sqlh.ExecNonScalar, sql, id, name, toolkit.RandInt(100), toolkit.Date2String(time.Now(), "yyyy-MM-dd hh:mm:ss"))
 	if qr.Error() != nil {
 		t.Error(qr.Error())
 	} else {
