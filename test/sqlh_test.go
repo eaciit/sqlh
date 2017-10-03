@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/eaciit/toolkit"
 
@@ -23,8 +24,10 @@ var (
 )
 
 type Employee struct {
-	ID   string
-	Name string
+	ID       string
+	Name     string
+	Level    int
+	JoinDate time.Time
 }
 
 func TestConnect(t *testing.T) {
@@ -51,6 +54,7 @@ func TestCreateTable(t *testing.T) {
 }
 
 func TestInsert(t *testing.T) {
+	t.Skip()
 	sql := "insert into test_table_model2 (id, name, level, datejoin) values(?,?,?,?)"
 	id := toolkit.RandomString(32)
 	name := "Name " + id
@@ -64,7 +68,7 @@ func TestInsert(t *testing.T) {
 }
 
 func TestSelect(t *testing.T) {
-	sql := "select * from test_table_model2"
+	sql := "select * from test_table_model2 order by id desc limit 2"
 	es := []Employee{}
 
 	qr := sqlh.Exec(db, sqlh.ExecQuery, sql)
@@ -76,7 +80,7 @@ func TestSelect(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	fmt.Printf("Returned record:%d\n%s", len(es), toolkit.JsonString(es))
+	fmt.Printf("Returned record:%d\n%s", len(es), toolkit.JsonStringIndent(es, "\n"))
 }
 
 func TestClose(t *testing.T) {
