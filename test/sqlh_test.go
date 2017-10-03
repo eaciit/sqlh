@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	sqlconn = "root:Database.1024@tcp(localhost:3306)/ectestdb"
+	sqlconn = "user:password.1234@tcp(localhost:3306)/ectestdb"
 )
 
 var (
