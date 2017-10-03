@@ -83,6 +83,22 @@ func TestSelect(t *testing.T) {
 	fmt.Printf("Returned record:%d\n%s", len(es), toolkit.JsonStringIndent(es, "\n"))
 }
 
+func TestSelectM(t *testing.T) {
+	sql := "select * from test_table_model2 where id like 'test%' order by id desc limit 2"
+	es := []toolkit.M{}
+
+	qr := sqlh.Exec(db, sqlh.ExecQuery, sql)
+	if qr.Error() != nil {
+		t.Error(qr.Error())
+	}
+
+	err = qr.Fetch(&es, 0)
+	if err != nil {
+		t.Error(err)
+	}
+	fmt.Printf("Returned record:%d\n%s", len(es), toolkit.JsonStringIndent(es, "\n"))
+}
+
 func TestClose(t *testing.T) {
 	if db != nil {
 		db.Close()
