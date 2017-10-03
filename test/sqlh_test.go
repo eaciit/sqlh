@@ -75,12 +75,13 @@ func TestSelect(t *testing.T) {
 	if qr.Error() != nil {
 		t.Error(qr.Error())
 	}
+	defer qr.Close()
 
 	err = qr.Fetch(&es, 0)
 	if err != nil {
 		t.Error(err)
 	}
-	fmt.Printf("Returned record:%d\n%s", len(es), toolkit.JsonStringIndent(es, "\n"))
+	//fmt.Printf("Returned record:%d\n%s", len(es), toolkit.JsonStringIndent(es, "\n"))
 }
 
 func TestSelectM(t *testing.T) {
@@ -91,12 +92,13 @@ func TestSelectM(t *testing.T) {
 	if qr.Error() != nil {
 		t.Error(qr.Error())
 	}
+	defer qr.Close()
 
 	err = qr.Fetch(&es, 0)
 	if err != nil {
 		t.Error(err)
 	}
-	fmt.Printf("Returned record:%d\n%s", len(es), toolkit.JsonStringIndent(es, "\n"))
+	//fmt.Printf("Returned record:%d\n%s", len(es), toolkit.JsonStringIndent(es, "\n"))
 }
 
 func TestClose(t *testing.T) {
