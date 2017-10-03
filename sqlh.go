@@ -15,7 +15,10 @@ type ExecTypeEnum int
 const (
 	ExecQuery ExecTypeEnum = 0
 	//ExecQuerySingle              = 1
-	ExecNonScalar    = 2
+	ExecNonScalar = 2
+)
+
+var (
 	GlobalDateFormat = "2006-01-02 15:04:05"
 )
 

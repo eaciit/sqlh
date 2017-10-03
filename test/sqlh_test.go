@@ -27,10 +27,11 @@ type Employee struct {
 	ID       string
 	Name     string
 	Level    int
-	JoinDate time.Time
+	DateJoin time.Time `json:datejoin`
 }
 
 func TestConnect(t *testing.T) {
+	sqlh.GlobalDateFormat = "2006-01-02"
 	db, err = sqlh.Connect("mysql", sqlconn)
 	if err != nil {
 		fmt.Println("error connecting database", err)
@@ -54,11 +55,11 @@ func TestCreateTable(t *testing.T) {
 }
 
 func TestInsert(t *testing.T) {
-	t.Skip()
+	//t.Skip()
 	sql := "insert into test_table_model2 (id, name, level, datejoin) values(?,?,?,?)"
 	id := toolkit.RandomString(32)
 	name := "Name " + id
-	qr := sqlh.Exec(db, sqlh.ExecNonScalar, sql, id, name, 100, "2017-01-01")
+	qr := sqlh.Exec(db, sqlh.ExecNonScalar, sql, id, name, 100, toolkit.Date2String(time.Now(), "yyyy-MM-dd hh:mm:ss"))
 	if qr.Error() != nil {
 		t.Error(qr.Error())
 	} else {
@@ -81,7 +82,7 @@ func TestSelect(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	//fmt.Printf("Returned record:%d\n%s", len(es), toolkit.JsonStringIndent(es, "\n"))
+	fmt.Printf("Returned record:%d\n%s", len(es), toolkit.JsonStringIndent(es, "\n"))
 }
 
 func TestSelectM(t *testing.T) {
